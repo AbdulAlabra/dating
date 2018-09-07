@@ -2,7 +2,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8080;
 // support parsing of application/json type post data
 
 //support parsing of application/x-www-form-urlencoded post data
