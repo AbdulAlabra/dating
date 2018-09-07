@@ -246,17 +246,53 @@
             $("#q10").val()
           ]
         };
-        console.log(userData);
+
         //post method here
-        $.post("../data/friends.js", userData, function (data) {
 
-          // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-         console.log(data);
+        // $.post("api/friends", userData, function (data) {
+        //   // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+        //   console.log(data);
+        //   // Show the modal with the best match
+        //   $("#results-modal").modal("toggle");
+        // });
+        var userInputScore = userData.scores.reduce(function (x, index) {
+          return x + Number(index);
+        }, 0);
 
-          // Show the modal with the best match
-          $("#results-modal").modal("toggle");
+        console.log(userInputScore);
 
-        });
+        $.ajax({ url: "api/friends", method: "GET" })
+          .then(function (response) {
+
+            var arrayOfNumbers = [];
+
+            var dataScores = response.filter(function (obj) {
+
+              var compareUserScores = obj.scores.reduce(function (x, index) {
+                return x + Number(index);
+              }, 0);
+
+              console.log(compareUserScores);
+
+              var dif = compareUserScores - userInputScore;
+
+              return arrayOfNumbers.push(dif);
+
+            }); // end of filter
+
+
+              // var returnBestFriend = arrayOfNumbers.find(function(index) {
+
+              //   return 
+              // });
+            console.log(dataScores);
+            console.log('------Array of numbers--------');
+            console.log(arrayOfNumbers);
+
+
+
+          });
+
       }
 
       else {
